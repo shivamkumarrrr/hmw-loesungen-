@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HMW → Konkrete Lösungen</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,500;0,9..40,700;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'DM Sans',sans-serif;background:#0B1120;color:#E2E8F0;min-height:100vh;padding:2rem}
+  
+  .header{text-align:center;margin:0 0 2.5rem}
+  .header h1{font-size:2rem;font-weight:700;background:linear-gradient(135deg,#38BDF8,#818CF8,#F472B6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin:0 0 .5rem}
+  .header p{color:#94A3B8;font-size:.9rem}
+  
+  .tabs{display:flex;gap:6px;justify-content:center;margin:0 0 2rem;flex-wrap:wrap}
+  .tab{padding:8px 18px;border-radius:10px;font-size:.85rem;font-weight:500;cursor:pointer;border:1px solid #1E293B;background:transparent;color:#94A3B8;transition:all .2s}
+  .tab:hover{border-color:#334155;color:#CBD5E1}
+  .tab.active{background:linear-gradient(135deg,#1E3A5F,#1E293B);border-color:#38BDF8;color:#38BDF8}
+  
+  .panel{display:none;max-width:900px;margin:0 auto;animation:fadeIn .3s ease}
+  .panel.active{display:block}
+  @keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+  
+  .hmw-card{background:linear-gradient(135deg,#831843,#701A75);border-radius:14px;padding:1.25rem 1.5rem;margin:0 0 .75rem}
+  .hmw-label{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#F9A8D4;margin:0 0 .5rem}
+  .hmw-text{font-size:1rem;font-weight:500;line-height:1.5;color:#FDF2F8}
+  
+  .idea-card{background:linear-gradient(135deg,#1E3A5F,#172554);border-radius:14px;padding:1.25rem 1.5rem;margin:0 0 1.5rem}
+  .idea-label{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#7DD3FC;margin:0 0 .5rem}
+  .idea-text{font-size:.9rem;line-height:1.6;color:#BAE6FD}
+  
+  .section-title{font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin:0 0 1rem;display:flex;align-items:center;gap:8px}
+  .section-title .dot{width:8px;height:8px;border-radius:50%}
+  
+  .feat{background:#111827;border:1px solid #1E293B;border-radius:14px;padding:1.25rem 1.5rem;margin:0 0 .75rem;transition:border-color .2s}
+  .feat:hover{border-color:#334155}
+  .feat-name{font-size:.95rem;font-weight:700;margin:0 0 .5rem;display:flex;align-items:center;gap:8px}
+  .feat-icon{width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:.85rem;flex-shrink:0}
+  .feat-desc{font-size:.85rem;color:#94A3B8;line-height:1.6;margin:0 0 .75rem}
+  .feat-how{font-size:.82rem;color:#CBD5E1;line-height:1.6;padding:.75rem;background:#0F172A;border-radius:8px;border-left:3px solid #38BDF8;margin:0 0 .5rem}
+  .feat-how b{color:#38BDF8}
+  .tags{display:flex;flex-wrap:wrap;gap:4px}
+  .tag{padding:3px 10px;border-radius:6px;font-size:.7rem;font-weight:500}
+  .tag-tech{background:#164E63;color:#67E8F9}
+  .tag-user{background:#422006;color:#FDBA74}
+  .tag-biz{background:#14532D;color:#86EFAC}
+  
+  .scamper{background:#111827;border:1px solid #1E293B;border-radius:14px;padding:1.25rem 1.5rem;margin:1.5rem 0 0}
+  .sc-title{font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#FBBF24;margin:0 0 .75rem}
+  .sc-chips{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 .75rem}
+  .sc-chip{padding:4px 12px;border-radius:8px;font-size:.75rem;font-weight:500}
+  .sc-s{background:#14532D;color:#86EFAC}
+  .sc-c{background:#164E63;color:#67E8F9}
+  .sc-a{background:#422006;color:#FDBA74}
+  .sc-m{background:#4C0519;color:#FDA4AF}
+  .sc-detail{font-size:.82rem;color:#94A3B8;line-height:1.7}
+  .sc-detail b{color:#FBBF24}
+  
+  .summary{background:linear-gradient(135deg,#0F172A,#1E293B);border:2px solid #38BDF8;border-radius:14px;padding:1.5rem;margin:2rem auto 0;max-width:900px}
+  .summary h3{font-size:1.1rem;font-weight:700;margin:0 0 1rem;display:flex;align-items:center;gap:8px}
+  .summary h3 span{color:#38BDF8}
+  .layer{padding:.75rem 1rem;background:#111827;border-radius:10px;margin:0 0 .5rem;font-size:.85rem;line-height:1.6;border-left:3px solid transparent}
+  .l1{border-left-color:#38BDF8}.l2{border-left-color:#818CF8}.l3{border-left-color:#F472B6}
+  .layer b{font-weight:700}
+  .layer .ln{font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin:0 0 4px;display:block}
+  .l1 .ln{color:#38BDF8}.l2 .ln{color:#818CF8}.l3 .ln{color:#F472B6}
+  .start-tip{margin:.75rem 0 0;padding:.75rem 1rem;background:#14532D;border-radius:10px;font-size:.85rem;color:#86EFAC;line-height:1.6}
+  .start-tip b{color:#4ADE80}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>HMW → Konkrete Lösungen</h1>
+  <p>AWSI 2026 Team 7 — Drei How-Might-We-Fragen, drei konkrete Produktkonzepte</p>
+</div>
+
+<div class="tabs">
+  <button class="tab active" onclick="show(0)">🗣️ HMW 1 — Sprachbarriere</button>
+  <button class="tab" onclick="show(1)">🔄 HMW 2 — Infoaustausch</button>
+  <button class="tab" onclick="show(2)">🤖 HMW 3 — MFA-Entlastung</button>
+  <button class="tab" onclick="show(3)">🧩 Zusammenführung</button>
+</div>
+
+<!-- =================== HMW 1 =================== -->
+<div class="panel active" id="p0">
+  <div class="hmw-card">
+    <div class="hmw-label">How Might We</div>
+    <div class="hmw-text">...die Kommunikation für Patient:innen mit Sprachbarrieren oder geringer Gesundheitskompetenz zugänglicher gestalten?</div>
+  </div>
+  <div class="idea-card">
+    <div class="idea-label">Eure Idee</div>
+    <div class="idea-text">Komplexe Inhalte durch einfache Sprache und klare Formulierungen verständlicher machen oder Echtzeit-Übersetzungsfunktionen für die Kommunikation zwischen Praxis und Patient:innen integrieren.</div>
+  </div>
+
+  <div class="section-title"><div class="dot" style="background:#4ADE80"></div><span style="color:#4ADE80">Konkrete Lösung: „Verständnis-Layer"</span></div>
+
+  <div class="feat">
+    <div class="feat-name"><div class="feat-icon" style="background:#164E63">🔤</div> Automatische Einfache-Sprache-Engine</div>
+    <div class="feat-desc">Jede Nachricht aus der Praxis (Befund, Anweisung, Termininfo) wird automatisch in Einfache Sprache umgewandelt, bevor sie den Patienten erreicht.</div>
+    <div class="feat-how"><b>Wie:</b> KI-Modell (LLM), das medizinische Fachsprache in laienverständliche Formulierungen übersetzt. Trainiert auf Leitlinien + Patientenbroschüren der BZgA. Keine freie Generierung — kontrollierte Umschreibungen mit Faktencheck gegen Quelltext. Standard: DIN SPEC 33429 (Leichte Sprache).</div>
+    <div class="tags"><span class="tag tag-tech">NLP / LLM</span><span class="tag tag-tech">DIN SPEC 33429</span><span class="tag tag-user">Patient:innen</span></div>
+  </div>
+
+  <div class="feat">
+    <div class="feat-name"><div class="feat-icon" style="background:#164E63">🌍</div> Echtzeit-Übersetzung in 8 Sprachen</div>
+    <div class="feat-desc">Türkisch, Arabisch, Ukrainisch, Russisch, Englisch, Polnisch, Rumänisch, Farsi — die 8 häufigsten Nicht-Muttersprachen in DE. Patient:in wählt einmal die Sprache, danach wird alles automatisch übersetzt.</div>
+    <div class="feat-how"><b>Wie:</b> DeepL API, medizinisch feingetunt. Jede Übersetzung wird mit einem medizinischen Glossar abgeglichen (z. B. „Nüchtern" ≠ „sober" sondern „fasting"). Praxis sendet deutsch — Patient:in empfängt in ihrer Sprache. Antworten werden rückübersetzt.</div>
+    <div class="tags"><span class="tag tag-tech">DeepL API</span><span class="tag tag-tech">Med. Glossar</span><span class="tag tag-user">13+ Mio. in DE</span></div>
+  </div>
+
+  <div class="feat">
+    <div class="feat-name"><div class="feat-icon" style="background:#164E63">🖼️</div> Visuelle Anweisungen (Piktogramme)</div>
+    <div class="feat-desc">Für Patient:innen mit geringer Lesekompetenz: Icon-basierte Anweisungen. „Nüchtern kommen" = durchgestrichenes Essen + Uhrzeit. „Medikamentenliste mitbringen" = Pillenbox + Checkmark.</div>
+    <div class="feat-how"><b>Wie:</b> Vordefinierte Icon-Bibliothek für die 30 häufigsten Praxis-Anweisungen. Wird automatisch neben den Text gesetzt. Keine KI-Generierung — kurierte, geprüfte Piktogramme. Inspiriert von Flughafen-Beschilderung: universell verständlich.</div>
+    <div class="tags"><span class="tag tag-tech">Icon-Library</span><span class="tag tag-user">Geringe Lesekompetenz</span><span class="tag tag-user">Ältere Patient:innen</span></div>
+  </div>
+
+  <div class="feat">
+    <div class="feat-name"><div class="feat-icon" style="background:#164E63">🔊</div> Audio-Nachrichten statt Text</div>
+    <div class="feat-desc">Für Patient:innen, die auch in ihrer Muttersprache ungern lesen: Alle Nachrichten optional als vorgelesene Audio-Nachricht in der gewählten Sprache. Ein Klick — und die Anweisung wird gesprochen.</div>
+    <div class="feat-how"><b>Wie:</b> Text-to-Speech (TTS) mit natürlicher Stimme. Mehrsprachig. Audio wird on-demand generiert, nicht vorproduziert. Patient:in kann Geschwindigkeit anpassen. Besonders relevant für ältere Patient:innen und Menschen mit Sehbehinderung.</div>
+    <div class="tags"><span class="tag tag-tech">TTS</span><span class="tag tag-user">Analphabetismus</span><span class="tag tag-user">Sehbehinderung</span><span class="tag tag-biz">Barrierefreiheit</span></div>
+  </div>
+
+  <div class="scamper">
+    <div class="sc-title">SCAMPER-Iteration</div>
+    <div class="sc-chips"><span class="sc-chip sc-s">Substitute</span><span class="sc-chip sc-c">Combine</span><span class="sc-chip sc-a">Adjust</span></div>
+    <div class="sc-detail">
+      <b>Substitute:</b> Statt schriftlicher Übersetzung → Voice-Message in der Zielsprache. Für Patient:innen, die auch in ihrer Sprache ungern lesen.<br>
+      <b>Combine:</b> Einfache Sprache + Übersetzung + Piktogramme + Audio in einer Nachricht = vierfach abgesichert.<br>
+      <b>Adjust:</b> Gesundheitskompetenz-Level wird beim Onboarding erfasst — nicht „Was ist Ihr Bildungsstand?" sondern „Wie möchten Sie Informationen erhalten?" (Text / Einfach / Bilder / Audio).
+    </div>
+  </div>
+</div>
+
+<!-- =================== HMW 2 =================== -->
+<div class="panel" id="p1">
+  <div class="hmw-card">
+    <div class="hmw-label">How Might We</div>
+    <div class="hmw-text">...den Informationsaustausch zwischen verschiedenen Praxen und Gesundheitszentren nahtlos gestalten, um Doppelarbeit zu vermeiden?</div>
+  </div>
+  <div class="idea-card">
+    <div class="idea-label">Eure Idee</div>
+    <div class="idea-text">Einen zentralen digitalen Hub schaffen, der alle relevanten Informationen einer Behandlung bündelt.</div>
+  </div>
+
+  <div class="section-title"><div class="dot" style="background:#818CF8"></div><span style="color:#818CF8">Konkrete Lösung: „Behandlungs-Hub"</span></div>
+
+  <div class="feat">
+    <div class="feat-name"><div class="feat-icon" style="background:#312E81">📁</div> Patientenakte-Light (Behandlungsmappe)</div>
+    <div class="feat-desc">Pro Patient:in eine digitale Behandlungsmappe, die automatisch alle Befunde, Überweisungen, Anweisungen und Termine zusammenführt — sichtbar für alle beteiligten Praxen UND die Patient:in.</div>
+    <div class="feat-how"><b>Wie:</b> Anbindung an die Telematikinfrastruktur (TI) über KIM. Neue Befunde werden automatisch der Mappe zugeordnet. Die ePA ab 2025 schafft die Grundlage — aber die ePA kommuniziert nicht aktiv. Der Hub ergänzt sie um einen Kommunikationslayer.</div>
+    <div class="tags"><span class="tag tag-tech">TI / KIM</span><span class="tag tag-tech">ePA-Anbindung</span><span class="tag tag-biz">Differenzierung</span></div>
+  </div>
+
+  <div class="feat">
+    <div class="feat-name"><div class="feat-icon" style="background:#312E81">🔔</div> Automatische Benachrichtigungskette</div>
+    <div class="feat-desc">Praxis A erstellt Befund → Praxis B (Überweiser) UND Patient:in werden automatisch benachrichtigt. Kein Fax, kein „Rufen Sie nächste Woche nochmal an".</div>
+    <div class="feat-how"><b>Wie:</b> Event-basiertes System: Befund im PVS → Webhook → Push an Patient:in (App/SMS) + KIM-Nachricht an überweisende Praxis. Verschlüsselt, DSGVO-konform, auditierbar. Patient:in bekommt: „Ihr Befund ist da. Tippen Sie hier, um ihn einzusehen."</div>
+    <div class="tags"><span class="tag tag-tech">Webhooks</span><span class="tag tag-tech">PVS-API</span><span class="tag tag-user">Patient:innen + Ärzt:innen</span></div>
+  </div>
+
+  <div class="feat">
+    <div class="feat-name"><div class="feat-icon" style="background:#312E81">📊</div> Behandlungs-Timeline</div>
+    <div class="feat-desc">Chronologische Übersicht aller Schritte: Erstbesuch → Labor → Facharzt → Befund → Diagnose → Therapie → Follow-up. Patient:in sieht jederzeit, wo sie im Prozess steht.</div>
+    <div class="feat-how"><b>Wie:</b> Jede Aktion erzeugt einen Timeline-Eintrag. Vertikale Timeline in der App. Praxen sehen vollständigen Verlauf, Patient:in eine vereinfachte Version (in Einfacher Sprache, dank HMW 1). Keine manuelle Eingabe nötig — alles wird automatisch aus PVS-Events generiert.</div>
+    <div class="tags"><span class="tag tag-tech">Event-Sourcing</span><span class="tag tag-user">Transparenz</span><span class="tag tag-biz">Alleinstellungsmerkmal</span></div>
+  </div>
+
+  <div class="feat">
+    <div class="feat-name"><div class="feat-icon" style="background:#312E81">🔐</div> Granulare Datensouveränität</div>
+    <div class="feat-desc">Patient:in kontrolliert, wer was sieht. „Mein Zahnarzt darf Röntgenbilder sehen, aber nicht meine Blutwerte." Ein-Klick-Freigabe per Praxis, nicht per Dokument.</div>
+    <div class="feat-how"><b>Wie:</b> Rollenbasiertes Zugriffsmodell. Patient:in gibt Praxen Zugriff auf Kategorien (Labor, Bildgebung, Medikation). Widerruf jederzeit möglich. Kompatibel mit ePA-Consent-Modell. Transparenz-Log: Patient:in sieht, wer wann was eingesehen hat.</div>
+    <div class="tags"><span class="tag tag-tech">RBAC</span><span class="tag tag-tech">ePA-Consent</span><span class="tag tag-biz">Vertrauen</span></div>
+  </div>
+
+  <div class="scamper">
+    <div class="sc-title">SCAMPER-Iteration</div>
+    <div class="sc-chips"><span class="sc-chip sc-c">Combine</span><span class="sc-chip sc-a">Adjust</span><span class="sc-chip sc-m">Modify</span></div>
+    <div class="sc-detail">
+      <b>Combine:</b> Behandlungs-Hub + Verständnis-Layer = Timeline in Einfacher Sprache, nicht in Fachkauderwelsch.<br>
+      <b>Adjust:</b> Statt komplett neuer Plattform → leichtgewichtiger Layer auf bestehenden PVS (Plugin statt Replacement). Adoptionshürde sinkt radikal.<br>
+      <b>Modify:</b> Die Behandlungsmappe wird zur „Gesundheits-App" für Patient:innen — langfristig nicht nur pro Behandlung, sondern als lebenslange Gesundheitsakte.
+    </div>
+  </div>
+</div>
+
+<!-- =================== HMW 3 =================== -->
+<div class="panel" id="p2">
+  <div class="hmw-card">
+    <div class="hmw-label">How Might We</div>
+    <div class="hmw-text">...medizinisches Personal von wiederkehrenden Kommunikationsaufgaben entlasten, um mehr Zeit für die Behandlung zu schaffen?</div>
+  </div>
+  <div class="idea-card">
+    <div class="idea-label">Eure Idee</div>
+    <div class="idea-text">Einen zentralen Kommunikationskanal schaffen, über den alle Termin- und Untersuchungsinformationen abrufbar sind.</div>
+  </div>
+
+  <div class="section-title"><div class="dot" style="background:#38BDF8"></div><span style="color:#38BDF8">Konkrete Lösung: „Praxis-Autopilot"</span></div>
+
+  <div class="feat">
+    <div class="feat-name"><div class="feat-icon" style="background:#164E63">📞</div> KI-Telefonassistent</div>
+    <div class="feat-desc">Eingehende Anrufe werden von KI beantwortet. Versteht natürliche Sprache, vergibt Termine, gibt Befundstatus durch, leitet nur echte Notfälle an die MFA weiter. Reduktion der Telefonlast um 40–60%.</div>
+    <div class="feat-how"><b>Wie:</b> Voice-AI (Vorbild: Aaron.ai, 2024 von Doctolib gekauft). Speech-to-Text → Intent Recognition (Termin / Befund / Rezept / Sonstiges) → automatische Antwort oder Weiterleitung. Integration ins PVS für Echtzeit-Terminverfügbarkeit. Fallback: „Ich verbinde Sie mit der Praxis" nach 2 erfolglosen Versuchen.</div>
+    <div class="tags"><span class="tag tag-tech">Voice-AI / STT</span><span class="tag tag-tech">PVS-Integration</span><span class="tag tag-user">MFA</span><span class="tag tag-biz">Vorbild: Aaron.ai</span></div>
+  </div>
+
+  <div class="feat">
+    <div class="feat-name"><div class="feat-icon" style="background:#164E63">📋</div> Pre-Visit-Autopilot</div>
+    <div class="feat-desc">48h vor jedem Termin: automatische Nachricht mit personalisierter Checkliste. „Ihr Termin am Freitag 10:00 bei Dr. Müller: Bitte kommen Sie nüchtern, bringen Sie Versichertenkarte und Überweisungsschein mit."</div>
+    <div class="feat-how"><b>Wie:</b> Termintyp im PVS → Template triggert → personalisiert mit Name, Datum, Arzt → versendet via Push/SMS/E-Mail. 30 Templates decken 95% der Fälle. MFA muss nichts tun — System läuft automatisch. No-Show-Reduktion: ca. 30%.</div>
+    <div class="tags"><span class="tag tag-tech">Template-Engine</span><span class="tag tag-tech">Cron + PVS-Trigger</span><span class="tag tag-user">Patient:innen + MFA</span><span class="tag tag-biz">No-Show ↓30%</span></div>
+  </div>
+
+  <div class="feat">
+    <div class="feat-name"><div class="feat-icon" style="background:#164E63">💚</div> Post-Visit-Autopilot</div>
+    <div class="feat-desc">Nach dem Arztbesuch: automatisiertes Follow-up. Tag 1: Zusammenfassung. Tag 3: „Wie geht es Ihnen?" Tag 7: Medikations-Erinnerung. Tag 14: „Haben Sie den Facharzttermin vereinbart?"</div>
+    <div class="feat-how"><b>Wie:</b> Behandlungstyp → Post-Visit-Workflow aktiviert → zeitgesteuerte Nachrichten. Patient:in kann antworten (Quick-Reply: „Alles gut" / „Ich habe eine Frage"). Nur echte Fragen werden als Ticket an MFA geroutet. <b>KEIN Anbieter am Markt bietet das — größte Marktlücke.</b></div>
+    <div class="tags"><span class="tag tag-tech">Workflow-Engine</span><span class="tag tag-tech">Async Messaging</span><span class="tag tag-user">Patient:innen</span><span class="tag tag-biz">MARKTLÜCKE</span></div>
+  </div>
+
+  <div class="feat">
+    <div class="feat-name"><div class="feat-icon" style="background:#164E63">📥</div> Smart-Inbox für die MFA</div>
+    <div class="feat-desc">Alle eingehenden Anfragen (Telefon, Chat, App) in einer Inbox. KI sortiert: 🔴 Dringend, 🟡 Routine, 🟢 Info. MFA sieht auf einen Blick, was zuerst dran ist. One-Click-Antworten für Standardfragen.</div>
+    <div class="feat-how"><b>Wie:</b> NLP-Klassifikator nach Urgenz und Typ. Dashboard mit Filtern. Makros für Standardantworten. Entscheidend: kein neuer Tab, sondern Plugin IN ihrem PVS. Die MFA darf ihre gewohnte Umgebung nicht verlassen — sonst wird das Tool ignoriert.</div>
+    <div class="tags"><span class="tag tag-tech">NLP-Klassifikation</span><span class="tag tag-tech">PVS-Plugin</span><span class="tag tag-user">MFA</span><span class="tag tag-biz">Adoptions-Schlüssel</span></div>
+  </div>
+
+  <div class="scamper">
+    <div class="sc-title">SCAMPER-Iteration</div>
+    <div class="sc-chips"><span class="sc-chip sc-s">Substitute</span><span class="sc-chip sc-c">Combine</span><span class="sc-chip sc-m">Modify</span></div>
+    <div class="sc-detail">
+      <b>Substitute:</b> Statt KI-Telefon sofort → erst Chat-Bot als niedrigschwelliger Einstieg. Praxen, die keinen Telefonbot wollen, starten mit Chat.<br>
+      <b>Combine:</b> Pre-Visit + Post-Visit + Smart-Inbox = ein durchgängiger Autopilot für den gesamten Patientenpfad.<br>
+      <b>Modify:</b> MFA kann Autopilot-Nachrichten vor Versand sehen und in 1 Klick anpassen. Sie verliert nicht die Kontrolle — sie bekommt einen Assistenten.
+    </div>
+  </div>
+</div>
+
+<!-- =================== ZUSAMMENFÜHRUNG =================== -->
+<div class="panel" id="p3">
+  <div class="summary">
+    <h3><span>🧩</span> Die drei HMWs sind drei Schichten einer Lösung</h3>
+    
+    <div class="layer l1">
+      <span class="ln">Schicht 1 — Fundament (HMW 3: Praxis-Autopilot)</span>
+      KI-Telefon, Pre-Visit, Post-Visit, Smart-Inbox. <b>Das öffnet den Kommunikationskanal</b> und entlastet die MFA. Ohne dieses Fundament hat nichts anderes eine Chance.
+    </div>
+    
+    <div class="layer l2">
+      <span class="ln">Schicht 2 — Verbindung (HMW 2: Behandlungs-Hub)</span>
+      Baut auf dem Kanal auf und <b>verbindet Praxen + Patient:innen</b>. Behandlungsmappe, Benachrichtigungskette, Timeline. Ohne den Kanal aus Schicht 1 hat der Hub keine Daten.
+    </div>
+    
+    <div class="layer l3">
+      <span class="ln">Schicht 3 — Zugänglichkeit (HMW 1: Verständnis-Layer)</span>
+      Macht alles aus Schicht 1 und 2 <b>für alle verständlich</b>: Einfache Sprache, Übersetzung, Piktogramme, Audio. Ohne ihn erreicht die beste Technik die verletzlichsten Patient:innen nicht.
+    </div>
+    
+    <div class="start-tip">
+      <b>Empfehlung fürs Team:</b> Startet mit Schicht 1 — konkret mit dem Pre-Visit-Autopilot und der Smart-Inbox. Das hat den schnellsten ROI, braucht die geringste PVS-Integration, und überzeugt die MFA in den ersten 30 Sekunden. Danach Schicht 2 und 3 iterativ dazubauen.
+    </div>
+  </div>
+
+  <div style="max-width:900px;margin:1.5rem auto 0">
+    <div class="section-title"><div class="dot" style="background:#FBBF24"></div><span style="color:#FBBF24">Roadmap-Vorschlag</span></div>
+    
+    <div class="feat" style="border-left:3px solid #38BDF8">
+      <div class="feat-name">Phase 1: Monat 1–3</div>
+      <div class="feat-desc" style="color:#CBD5E1">Pre-Visit-Autopilot (30 Templates) + Smart-Inbox (ohne KI, manuell sortiert). <b>Proof of Concept mit 5 Pilotpraxen.</b> Messung: Telefonanrufe vorher/nachher, No-Show-Rate.</div>
+    </div>
+    <div class="feat" style="border-left:3px solid #818CF8">
+      <div class="feat-name">Phase 2: Monat 4–6</div>
+      <div class="feat-desc" style="color:#CBD5E1">Post-Visit-Autopilot + KI-Sortierung in der Inbox + Befund-Push-Benachrichtigung. <b>Erste PVS-Integration (CGM oder medatixx).</b></div>
+    </div>
+    <div class="feat" style="border-left:3px solid #F472B6">
+      <div class="feat-name">Phase 3: Monat 7–12</div>
+      <div class="feat-desc" style="color:#CBD5E1">Verständnis-Layer (Einfache Sprache + Übersetzung 8 Sprachen) + Behandlungs-Timeline + KI-Telefonassistent. <b>Skalierung auf 50+ Praxen, DiGA-Antrag prüfen.</b></div>
+    </div>
+  </div>
+</div>
+
+<script>
+function show(i){
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById('p'+i).classList.add('active');
+  document.querySelectorAll('.tab')[i].classList.add('active');
+}
+</script>
+</body>
+</html>
