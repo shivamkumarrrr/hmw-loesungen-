@@ -1,0 +1,5 @@
+{
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/HMW_Konkrete_Loesungen.html" }
+  ]
+}
